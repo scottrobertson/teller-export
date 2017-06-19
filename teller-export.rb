@@ -25,8 +25,6 @@ command :qif do |c|
   c.option '--token STRING', String, 'The token from Teller'
   c.action do |args, options|
     options.default directory: "#{File.dirname(__FILE__)}/tmp"
-
-    options.default directory: "#{File.dirname(__FILE__)}/tmp"
     accounts(options.token).each do |account|
       path = full_path(options.directory, account, :qif)
       Qif::Writer.open(path, type = 'Bank', format = 'dd/mm/yyyy') do |qif|
