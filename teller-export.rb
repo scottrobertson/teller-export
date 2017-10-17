@@ -71,6 +71,22 @@ command :csv do |c|
   end
 end
 
+command :balance do |c|
+  c.syntax = 'teller-export balance [options]'
+  c.option '--token STRING', String, 'The token from Teller'
+  c.action do |args, options|
+    currency_replacements = { 'GBP' => '£' }
+    accounts(options.token).each do |account|
+      currency_output = currency_replacements[account['currency']] || account['currency']
+      puts "#{account['institution'].capitalize} #{account['name']}:"
+      puts "Account Number: #{account['account_number']}"
+      puts "Sort Code: #{account['sort_code']}"
+      puts "Balance: #{currency_output}#{account['balance']}"
+      puts '---'
+    end
+  end
+end
+
 def full_path(directory, account, extension)
   account_name = account['name'].gsub(/^.*(\\|\/)/, '').gsub(/[^0-9A-Za-z.\-]/, '_').downcase
   account_name += "_#{account['account_number']}"
