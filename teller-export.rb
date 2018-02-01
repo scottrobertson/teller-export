@@ -80,9 +80,10 @@ command :balance do |c|
       currency_output = currency_replacements[account['currency']] || account['currency']
       puts "#{account['institution'].capitalize} #{account['name']}:"
       puts "Account Number: #{account['account_number']}"
-      puts "Sort Code: #{account['sort_code']}"
+      puts "Sort Code: #{account['bank_code']}"
       puts "Balance: #{currency_output}#{account['balance']}"
       puts '---'
+      puts ''
     end
   end
 end
